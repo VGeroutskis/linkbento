@@ -655,28 +655,43 @@ if ('ontouchstart' in window) {
 // =============== KEYBOARD NAVIGATION ===============
 let currentIndex = -1;
 
+function getFocusableElements() {
+    return document.querySelectorAll('.link-btn, .action-btn, .lang-btn, #themeToggle, #vcardBtn, #changelogBtn');
+}
+
 document.addEventListener('keydown', (e) => {
-    if (contactModal.classList.contains('active')) return;
+    // Skip if any modal is active
+    if (contactModal.classList.contains('active') ||
+        document.getElementById('qrModal')?.classList.contains('active') ||
+        document.getElementById('shareModal')?.classList.contains('active') ||
+        document.getElementById('changelogModal')?.classList.contains('active')) return;
     
-    const linkBtns = document.querySelectorAll('.link-btn');
-    if (linkBtns.length === 0) return;
+    const focusable = getFocusableElements();
+    if (focusable.length === 0) return;
 
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
         e.preventDefault();
-        linkBtns.forEach(btn => btn.classList.remove('focused'));
+        focusable.forEach(btn => btn.classList.remove('focused'));
         
         if (e.key === 'ArrowDown') {
-            currentIndex = (currentIndex + 1) % linkBtns.length;
+            currentIndex = (currentIndex + 1) % focusable.length;
         } else {
-            currentIndex = currentIndex <= 0 ? linkBtns.length - 1 : currentIndex - 1;
+            currentIndex = currentIndex <= 0 ? focusable.length - 1 : currentIndex - 1;
         }
         
-        linkBtns[currentIndex].classList.add('focused');
-        linkBtns[currentIndex].focus();
+        focusable[currentIndex].classList.add('focused');
+        focusable[currentIndex].focus();
+        focusable[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     
     if (e.key === 'Enter' && currentIndex >= 0) {
-        linkBtns[currentIndex].click();
+        focusable[currentIndex].click();
+    }
+    
+    // Escape resets navigation
+    if (e.key === 'Escape') {
+        focusable.forEach(btn => btn.classList.remove('focused'));
+        currentIndex = -1;
     }
 });
 
@@ -701,14 +716,19 @@ function activateEasterEgg() {
     const easterText = document.getElementById('easterEggText');
     easterText.classList.add('active');
     
-    for (let i = 0; i < 100; i++) {
+    // Initial burst
+    for (let i = 0; i < 150; i++) {
         createConfetti();
     }
+    // Additional waves
+    setTimeout(() => { for (let i = 0; i < 80; i++) createConfetti(); }, 2000);
+    setTimeout(() => { for (let i = 0; i < 80; i++) createConfetti(); }, 4000);
+    setTimeout(() => { for (let i = 0; i < 50; i++) createConfetti(); }, 6000);
     
     setTimeout(() => {
         document.body.classList.remove('easter-egg-active');
         easterText.classList.remove('active');
-    }, 3000);
+    }, 8000);
 }
 
 function createConfetti() {

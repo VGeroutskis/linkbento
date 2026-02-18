@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.9.0] - 2026-02-18
+
+<!-- en -->
+### Changed
+- Easter egg now lasts longer with multiple confetti waves 🎊
+
+### Fixed
+- Keyboard navigation now works on all interactive elements (action buttons, language toggle, theme), not just links
+- Default theme applies correctly on first visit
+
+<!-- el -->
+### Αλλαγή
+- Το Easter egg διαρκεί περισσότερο με πολλαπλά κύματα κομφετί 🎊
+
+### Διόρθωση
+- Η πλοήγηση με πληκτρολόγιο λειτουργεί πλέον σε όλα τα διαδραστικά στοιχεία (κουμπιά ενεργειών, εναλλαγή γλώσσας, θέμα), όχι μόνο στα links
+- Το προεπιλεγμένο θέμα εφαρμόζεται σωστά στην πρώτη επίσκεψη
+
 ## [2.8.0] - 2026-02-18
 
 <!-- en -->

@@ -8,7 +8,7 @@
 
 A modern, feature-rich personal links page — like Linktree, but open source, self-hosted, and fully customizable. Zero dependencies, no build step, just pure HTML/CSS/JS.
 
-**Demo:** [geroutskis.com/links](https://geroutskis.com/links)
+**Demo:** [geroutskis.com](https://geroutskis.com)
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
@@ -162,7 +162,7 @@ Created by [Valentinos Geroutskis](https://geroutskis.com). If you use LinkBento
 
 Μια μοντέρνα, πλούσια σε χαρακτηριστικά προσωπική σελίδα links — σαν το Linktree, αλλά open source, self-hosted και πλήρως παραμετροποιήσιμη. Μηδέν dependencies, κανένα build step, μόνο HTML/CSS/JS.
 
-**Demo:** [geroutskis.com/links](https://geroutskis.com/links)
+**Demo:** [geroutskis.com](https://geroutskis.com)
 
 ### ✨ Χαρακτηριστικά
 
