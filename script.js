@@ -136,7 +136,7 @@ const CONFIG = {
 // Inline fallback (δουλεύει και με file:///), JSON αρχεία κάνουν override αν φορτωθούν
 const translations = {
     el: {
-        "name": "Βαλεντίνος Γερουτσκής",
+        "name": "Βαλεντίνος Γερούτσκυς",
         "bio": "Μηχανικός Λογισμικού | Λάτρης της Τεχνολογίας",
         "status-available": "Διαθέσιμος για εργασία",
         "status-unavailable": "Μη διαθέσιμος αυτή τη στιγμή",
