@@ -180,7 +180,8 @@ const translations = {
         "changelog-title": "Τι νέο υπάρχει",
         "welcome": "Καλώς ήρθες!",
         "popular": "δημοφιλές",
-        "links-title": "Σύνδεσμοι"
+        "links-title": "Σύνδεσμοι",
+        "easter-egg": "🎉 ΤΟ ΒΡΗΚΕΣ! 🎉"
     },
     en: {
         "name": "Valentinos Geroutskis",
@@ -227,7 +228,8 @@ const translations = {
         "changelog-title": "What's New",
         "welcome": "Welcome!",
         "popular": "popular",
-        "links-title": "Connect"
+        "links-title": "Connect",
+        "easter-egg": "🎉 YOU FOUND IT! 🎉"
     }
 };
 
@@ -661,7 +663,7 @@ function getNavSections() {
     return [
         { elements: document.querySelectorAll('.action-btn'), horizontal: true },
         { elements: document.querySelectorAll('.link-btn'), horizontal: false },
-        { elements: document.querySelectorAll('.portfolio-card a.portfolio-link, .portfolio-card'), horizontal: true }
+        { elements: document.querySelectorAll('.portfolio-card-link'), horizontal: true }
     ].filter(s => s.elements.length > 0);
 }
 
@@ -785,6 +787,7 @@ document.addEventListener('keydown', (e) => {
 function activateEasterEgg() {
     document.body.classList.add('easter-egg-active');
     const easterText = document.getElementById('easterEggText');
+    easterText.textContent = translations[currentLang]['easter-egg'];
     easterText.classList.add('active');
     
     // Initial burst
@@ -796,10 +799,13 @@ function activateEasterEgg() {
     setTimeout(() => { for (let i = 0; i < 80; i++) createConfetti(); }, 4000);
     setTimeout(() => { for (let i = 0; i < 50; i++) createConfetti(); }, 6000);
     
+    // Confetti stops at 8s, text stays until 12s
     setTimeout(() => {
         document.body.classList.remove('easter-egg-active');
-        easterText.classList.remove('active');
     }, 8000);
+    setTimeout(() => {
+        easterText.classList.remove('active');
+    }, 12000);
 }
 
 function createConfetti() {
@@ -1167,25 +1173,27 @@ function renderPortfolioFromGithub(repos) {
     }
     
     container.innerHTML = repos.map((repo, index) => `
-        <div class="portfolio-card" style="animation-delay: ${index * 0.15}s">
-            <div class="portfolio-header">
-                <i class="fas fa-folder-open"></i>
-                <div class="portfolio-stats">
-                    <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
-                    <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
+        <a href="${repo.html_url}" target="_blank" class="portfolio-card-link" style="text-decoration: none; color: inherit;">
+            <div class="portfolio-card" style="animation-delay: ${index * 0.15}s">
+                <div class="portfolio-header">
+                    <i class="fas fa-folder-open"></i>
+                    <div class="portfolio-stats">
+                        <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
+                        <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h4>${repo.name}</h4>
+                    <p>${repo.description || ''}</p>
+                    <div class="portfolio-meta">
+                        ${repo.language ? `<span class="repo-lang"><span class="lang-dot" style="background: ${getLanguageColor(repo.language)}"></span>${repo.language}</span>` : ''}
+                    </div>
+                    <span class="portfolio-link">
+                        ${translations[currentLang]['view-project']} <i class="fas fa-arrow-right"></i>
+                    </span>
                 </div>
             </div>
-            <div class="portfolio-info">
-                <h4>${repo.name}</h4>
-                <p>${repo.description || ''}</p>
-                <div class="portfolio-meta">
-                    ${repo.language ? `<span class="repo-lang"><span class="lang-dot" style="background: ${getLanguageColor(repo.language)}"></span>${repo.language}</span>` : ''}
-                </div>
-                <a href="${repo.html_url}" target="_blank" class="portfolio-link">
-                    ${translations[currentLang]['view-project']} <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </div>
+        </a>
     `).join('');
 }
 
@@ -1573,15 +1581,17 @@ function renderPortfolio() {
     if (!container) return;
     
     container.innerHTML = CONFIG.portfolio.map((project, index) => `
-        <div class="portfolio-card" style="animation-delay: ${index * 0.15}s">
-            <img src="${project.image}" alt="${project.title[currentLang]}" loading="lazy">
-            <div class="portfolio-info">
-                <h4>${project.title[currentLang]}</h4>
-                <p>${project.description[currentLang]}</p>
-                <a href="${project.link}" target="_blank" class="portfolio-link">
-                    ${translations[currentLang]['view-project']} <i class="fas fa-arrow-right"></i>
-                </a>
+        <a href="${project.link}" target="_blank" class="portfolio-card-link" style="text-decoration: none; color: inherit;">
+            <div class="portfolio-card" style="animation-delay: ${index * 0.15}s">
+                <img src="${project.image}" alt="${project.title[currentLang]}" loading="lazy">
+                <div class="portfolio-info">
+                    <h4>${project.title[currentLang]}</h4>
+                    <p>${project.description[currentLang]}</p>
+                    <span class="portfolio-link">
+                        ${translations[currentLang]['view-project']} <i class="fas fa-arrow-right"></i>
+                    </span>
+                </div>
             </div>
-        </div>
+        </a>
     `).join('');
 }

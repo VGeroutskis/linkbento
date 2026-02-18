@@ -1341,6 +1341,7 @@ a:focus-visible {
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
     animation: fadeInUp 0.6s ease forwards;
+    cursor: pointer;
 }
 
 .portfolio-card:hover {

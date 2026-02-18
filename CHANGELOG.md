@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.9.2] - 2026-02-18
+
+<!-- en -->
+### Changed
+- Easter egg text is now bilingual (EL/EN) based on active language
+- Easter egg text stays visible for 12 seconds (confetti for 8s)
+- Portfolio cards are now fully clickable (entire tile, not just the link)
+
+<!-- el -->
+### Αλλαγή
+- Το κείμενο του Easter egg είναι πλέον δίγλωσσο (EL/EN) ανάλογα με την ενεργή γλώσσα
+- Το κείμενο του Easter egg μένει ορατό για 12 δευτερόλεπτα (κομφετί για 8δ)
+- Τα portfolio cards είναι πλέον clickable σε ολόκληρο το tile (όχι μόνο στο link)
+
 ## [2.9.1] - 2026-02-18
 
 <!-- en -->
