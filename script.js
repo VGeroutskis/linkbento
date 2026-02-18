@@ -10,7 +10,7 @@ const CONFIG = {
     favicon: '🍱',       // Emoji ή URL εικόνας
     themeColor: '#00d2ff',
     defaultLang: 'el',   // 'el' ή 'en'
-    defaultTheme: 'dark', // dark, light, cyberpunk, sunset, ocean, forest, neon, midnight, rose, aurora
+    defaultTheme: 'neon', // dark, light, cyberpunk, sunset, ocean, forest, neon, midnight, rose, aurora
 
     // ── SEO & Social / Meta tags ──
     seo: {
