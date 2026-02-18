@@ -457,11 +457,14 @@ const themeOptions = document.querySelectorAll('.theme-option');
 const html = document.documentElement;
 
 const savedTheme = localStorage.getItem('theme') || CONFIG.defaultTheme;
-if (savedTheme !== 'dark') {
+if (savedTheme && savedTheme !== 'dark') {
     html.setAttribute('data-theme', savedTheme);
-    document.querySelector('.theme-option.dark').classList.remove('active');
-    document.querySelector(`.theme-option.${savedTheme}`)?.classList.add('active');
+} else {
+    html.removeAttribute('data-theme');
 }
+// Set active class on the correct theme option
+themeOptions.forEach(o => o.classList.remove('active'));
+document.querySelector(`.theme-option.${savedTheme}`)?.classList.add('active');
 
 themeToggle.addEventListener('click', () => {
     themePicker.classList.toggle('active');
