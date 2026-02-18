@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.9.1] - 2026-02-18
+
+<!-- en -->
+### Changed
+- Action buttons (share, copy, QR, vCard, changelog) now navigate with Left/Right arrows instead of Up/Down
+- Keyboard navigation organized into sections: actions (←→), links (↑↓), portfolio (←→)
+
+### Fixed
+- Portfolio projects now reachable via keyboard navigation
+
+<!-- el -->
+### Αλλαγή
+- Τα κουμπιά ενεργειών (κοινοποίηση, αντιγραφή, QR, vCard, changelog) πλοηγούνται πλέον με Αριστερά/Δεξιά αντί Πάνω/Κάτω
+- Η πλοήγηση με πληκτρολόγιο οργανώθηκε σε ενότητες: ενέργειες (←→), links (↑↓), portfolio (←→)
+
+### Διόρθωση
+- Τα projects στο portfolio είναι πλέον προσβάσιμα μέσω πληκτρολογίου
+
 ## [2.9.0] - 2026-02-18
 
 <!-- en -->

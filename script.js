@@ -653,45 +653,116 @@ if ('ontouchstart' in window) {
 }
 
 // =============== KEYBOARD NAVIGATION ===============
-let currentIndex = -1;
+// Sections: action-btn use Left/Right, everything else uses Up/Down
+let navSectionIndex = 0; // 0 = actions, 1 = links, 2 = portfolio
+let navItemIndex = -1;
 
-function getFocusableElements() {
-    return document.querySelectorAll('.link-btn, .action-btn, .lang-btn, #themeToggle, #vcardBtn, #changelogBtn');
+function getNavSections() {
+    return [
+        { elements: document.querySelectorAll('.action-btn'), horizontal: true },
+        { elements: document.querySelectorAll('.link-btn'), horizontal: false },
+        { elements: document.querySelectorAll('.portfolio-card a.portfolio-link, .portfolio-card'), horizontal: true }
+    ].filter(s => s.elements.length > 0);
+}
+
+function clearNavFocus() {
+    document.querySelectorAll('.focused').forEach(el => el.classList.remove('focused'));
+}
+
+function isAnyModalActive() {
+    return contactModal.classList.contains('active') ||
+        document.getElementById('qrModal')?.classList.contains('active') ||
+        document.getElementById('shareModal')?.classList.contains('active') ||
+        document.getElementById('changelogModal')?.classList.contains('active');
 }
 
 document.addEventListener('keydown', (e) => {
-    // Skip if any modal is active
-    if (contactModal.classList.contains('active') ||
-        document.getElementById('qrModal')?.classList.contains('active') ||
-        document.getElementById('shareModal')?.classList.contains('active') ||
-        document.getElementById('changelogModal')?.classList.contains('active')) return;
+    if (isAnyModalActive()) return;
     
-    const focusable = getFocusableElements();
-    if (focusable.length === 0) return;
+    const sections = getNavSections();
+    if (sections.length === 0) return;
 
-    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        focusable.forEach(btn => btn.classList.remove('focused'));
-        
-        if (e.key === 'ArrowDown') {
-            currentIndex = (currentIndex + 1) % focusable.length;
-        } else {
-            currentIndex = currentIndex <= 0 ? focusable.length - 1 : currentIndex - 1;
-        }
-        
-        focusable[currentIndex].classList.add('focused');
-        focusable[currentIndex].focus();
-        focusable[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-    
-    if (e.key === 'Enter' && currentIndex >= 0) {
-        focusable[currentIndex].click();
-    }
-    
-    // Escape resets navigation
+    const isArrow = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key);
+    if (!isArrow && e.key !== 'Enter' && e.key !== 'Escape') return;
+
     if (e.key === 'Escape') {
-        focusable.forEach(btn => btn.classList.remove('focused'));
-        currentIndex = -1;
+        clearNavFocus();
+        navSectionIndex = 0;
+        navItemIndex = -1;
+        return;
+    }
+
+    if (e.key === 'Enter') {
+        if (navItemIndex >= 0 && sections[navSectionIndex]) {
+            const el = sections[navSectionIndex].elements[navItemIndex];
+            if (el) {
+                // For portfolio cards, click the link inside
+                const link = el.querySelector('a.portfolio-link') || el;
+                link.click();
+            }
+        }
+        return;
+    }
+
+    e.preventDefault();
+    const currentSection = sections[navSectionIndex];
+    
+    // Up/Down = switch between sections
+    if (e.key === 'ArrowDown') {
+        if (navItemIndex === -1 || !currentSection?.horizontal) {
+            // In vertical section, try to move within items first
+            if (!currentSection?.horizontal && navItemIndex >= 0 && navItemIndex < currentSection.elements.length - 1) {
+                clearNavFocus();
+                navItemIndex++;
+            } else {
+                // Move to next section
+                clearNavFocus();
+                navSectionIndex = (navSectionIndex + 1) % sections.length;
+                navItemIndex = 0;
+            }
+        } else {
+            // In horizontal section, down goes to next section
+            clearNavFocus();
+            navSectionIndex = (navSectionIndex + 1) % sections.length;
+            navItemIndex = 0;
+        }
+    } else if (e.key === 'ArrowUp') {
+        if (!currentSection?.horizontal && navItemIndex > 0) {
+            clearNavFocus();
+            navItemIndex--;
+        } else {
+            clearNavFocus();
+            navSectionIndex = navSectionIndex <= 0 ? sections.length - 1 : navSectionIndex - 1;
+            const newSection = sections[navSectionIndex];
+            navItemIndex = newSection.elements.length - 1;
+        }
+    } else if (e.key === 'ArrowRight') {
+        if (currentSection?.horizontal) {
+            clearNavFocus();
+            if (navItemIndex === -1) {
+                navItemIndex = 0;
+            } else {
+                navItemIndex = (navItemIndex + 1) % currentSection.elements.length;
+            }
+        }
+    } else if (e.key === 'ArrowLeft') {
+        if (currentSection?.horizontal) {
+            clearNavFocus();
+            if (navItemIndex <= 0) {
+                navItemIndex = currentSection.elements.length - 1;
+            } else {
+                navItemIndex--;
+            }
+        }
+    }
+
+    // Apply focus
+    const section = sections[navSectionIndex];
+    if (section && navItemIndex >= 0 && navItemIndex < section.elements.length) {
+        const el = section.elements[navItemIndex];
+        el.classList.add('focused');
+        el.focus();
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 });
 
