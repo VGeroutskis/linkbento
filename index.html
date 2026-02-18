@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LinkBento</title>
+    
+    <!-- Preconnect for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://api.github.com">
+    
+    <!-- SEO Meta Tags (set dynamically from CONFIG) -->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    
+    <!-- Open Graph / Social Media (set dynamically from CONFIG) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    
+    <!-- Twitter Card (set dynamically from CONFIG) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    
+    <!-- Favicon (set dynamically from CONFIG) -->
+    <link rel="icon" type="image/svg+xml" href="">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00d2ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Pull to Refresh Indicator -->
+    <div class="pull-indicator" id="pullIndicator">
+        <i class="fas fa-arrow-down"></i>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loader-wrapper" id="loader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Particles Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-palette" id="themeIcon"></i>
+    </button>
+
+    <!-- Theme Picker Panel -->
+    <div class="theme-picker" id="themePicker">
+        <div class="theme-picker-title" data-lang-key="theme">Theme</div>
+        <div class="theme-options">
+            <div class="theme-option auto" data-theme="auto" title="Auto"></div>
+            <div class="theme-option dark active" data-theme="dark" title="Dark"></div>
+            <div class="theme-option light" data-theme="light" title="Light"></div>
+            <div class="theme-option cyberpunk" data-theme="cyberpunk" title="Cyberpunk"></div>
+            <div class="theme-option sunset" data-theme="sunset" title="Sunset"></div>
+            <div class="theme-option ocean" data-theme="ocean" title="Ocean"></div>
+            <div class="theme-option forest" data-theme="forest" title="Forest"></div>
+            <div class="theme-option neon" data-theme="neon" title="Neon"></div>
+            <div class="theme-option midnight" data-theme="midnight" title="Midnight"></div>
+            <div class="theme-option rose" data-theme="rose" title="Rose"></div>
+            <div class="theme-option aurora" data-theme="aurora" title="Aurora"></div>
+        </div>
+    </div>
+
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="el">EL</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+
+    <!-- Cursor Trail Elements -->
+    <div class="cursor-trail" id="cursorTrail1"></div>
+    <div class="cursor-trail" id="cursorTrail2"></div>
+    <div class="cursor-trail" id="cursorTrail3"></div>
+
+    <section class="profile-section">
+        <img src="" alt="" class="profile-img">
+        <p class="greeting" id="greeting"></p>
+        <h1></h1>
+        <p class="bio" data-lang-key="bio"></p>
+        <div class="status-badge" id="statusBadge">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Available for work</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-btn" id="shareBtn" aria-label="Share">
+                <i class="fas fa-share-alt"></i>
+            </button>
+            <button class="action-btn" id="copyBtn" aria-label="Copy link">
+                <i class="fas fa-copy"></i>
+            </button>
+            <button class="action-btn" id="qrBtn" aria-label="Show QR Code">
+                <i class="fas fa-qrcode"></i>
+            </button>
+            <button class="action-btn" id="vcardBtn" aria-label="Save Contact">
+                <i class="fas fa-address-card"></i>
+            </button>
+            <button class="action-btn" id="changelogBtn" aria-label="What's New">
+                <i class="fas fa-gift"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <p class="skills-title" data-lang-key="skills-title">Tech Stack</p>
+        <div class="skills-container" id="skillsContainer"></div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio-section">
+        <p class="portfolio-title" data-lang-key="portfolio-title">Portfolio</p>
+        <div class="portfolio-container" id="portfolioContainer"></div>
+    </section>
+
+    <!-- Links Section (rendered dynamically from CONFIG.links) -->
+    <section class="links-section">
+        <p class="links-title" data-lang-key="links-title">Connect</p>
+        <main class="links-container" id="main-content">
+            <!-- Links are rendered dynamically from CONFIG -->
+        </main>
+    </section>
+
+    <!-- Contact Modal -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="contact-modal">
+            <div class="modal-header">
+                <span class="modal-title" data-lang-key="modal-title">Get in Touch</span>
+                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label data-lang-key="form-name">Your Name</label>
+                    <input type="text" name="name" id="formName" required>
+                </div>
+                <div class="form-group">
+                    <label data-lang-key="form-email">Your Email</label>
+                    <input type="email" name="email" id="formEmail" required>
+                </div>
+                <div class="form-group">
+                    <label data-lang-key="form-message">Message</label>
+                    <textarea name="message" id="formMessage" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn" data-lang-key="form-send">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Easter Egg Text -->
+    <div class="easter-egg-text" id="easterEggText">🎉 YOU FOUND IT! 🎉</div>
+
+    <!-- QR Code Modal -->
+    <div id="qrModal">
+        <div class="qr-modal-content">
+            <div class="modal-header">
+                <span class="modal-title" data-lang-key="qr-title">Scan to visit</span>
+                <button class="modal-close" id="qrModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="qr-code" id="qrCode"></div>
+            <button class="submit-btn" id="downloadQR" style="margin-top: 15px;">
+                <i class="fas fa-download"></i> <span data-lang-key="download-qr">Download QR</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="shareModal">
+        <div class="share-modal-content">
+            <div class="modal-header">
+                <span class="modal-title" data-lang-key="share-title">Share</span>
+                <button class="modal-close" id="shareModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="share-options">
+                <a href="#" id="shareX" target="_blank"><i class="fab fa-x-twitter"></i>X</a>
+                <a href="#" id="shareFacebook" target="_blank"><i class="fab fa-facebook"></i>Facebook</a>
+                <a href="#" id="shareLinkedin" target="_blank"><i class="fab fa-linkedin"></i>LinkedIn</a>
+                <a href="#" id="shareWhatsapp" target="_blank"><i class="fab fa-whatsapp"></i>WhatsApp</a>
+                <a href="#" id="shareTelegram" target="_blank"><i class="fab fa-telegram"></i>Telegram</a>
+                <a href="#" id="shareCopyLink"><i class="fas fa-link"></i><span data-lang-key="copy-link">Copy</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h4><i class="fas fa-cookie-bite"></i> <span data-lang-key="cookie-title">Cookie Settings</span></h4>
+                <p data-lang-key="cookie-text">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. <a href="#" data-lang-key="cookie-learn">Learn more</a></p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn accept" id="acceptCookies">
+                    <span data-lang-key="cookie-accept">Accept</span>
+                </button>
+                <button class="cookie-btn decline" id="declineCookies">
+                    <span data-lang-key="cookie-decline">Decline</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Changelog Modal -->
+    <div id="changelogModal">
+        <div class="changelog-modal-content">
+            <div class="modal-header">
+                <span class="modal-title" data-lang-key="changelog-title">What's New</span>
+                <button class="modal-close" id="changelogModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="changelogContent"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="timezone">
+            <i class="fas fa-map-marker-alt"></i>
+            <span id="locationTime">Athens, Greece • --:--</span>
+        </div>
+        <!-- GitHub Stats -->
+        <div class="github-stats" id="githubStats">
+            <span><i class="fas fa-code-branch"></i> <span id="repoCount">--</span> repos</span>
+            <span><i class="fas fa-users"></i> <span id="followerCount">--</span> followers</span>
+        </div>
+        <p>© <span id="year"></span> <span class="copyright-name"></span></p>
+        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 4px;">Powered by <a class="linkbento-link" href="#" target="_blank" style="color: var(--accent-color); text-decoration: none;">LinkBento</a> 🍱</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
