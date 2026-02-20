@@ -38,7 +38,8 @@ function isAnyModalActive() {
     return document.getElementById('contactModal')?.classList.contains('active') ||
         document.getElementById('qrModal')?.classList.contains('active') ||
         document.getElementById('shareModal')?.classList.contains('active') ||
-        document.getElementById('changelogModal')?.classList.contains('active');
+        document.getElementById('changelogModal')?.classList.contains('active') ||
+        document.getElementById('calendlyModal')?.classList.contains('active');
 }
 
 document.addEventListener('keydown', (e) => {

@@ -184,21 +184,36 @@ function bindLinkEvents() {
         document.getElementById('contactModal').classList.add('active');
     });
 
-    // Calendly button — opens popup widget on the page
+    // Calendly button — opens inline embed in custom modal
     const calendlyBtn = document.getElementById('calendlyBtn');
+    const calendlyModal = document.getElementById('calendlyModal');
+    const calendlyModalClose = document.getElementById('calendlyModalClose');
+    let calendlyLoaded = false;
+
     calendlyBtn?.addEventListener('click', (e) => {
         e.preventDefault();
-        if (typeof Calendly !== 'undefined') {
-            Calendly.initPopupWidget({
+        calendlyModal?.classList.add('active');
+
+        if (!calendlyLoaded && typeof Calendly !== 'undefined') {
+            const container = document.getElementById('calendlyContainer');
+            container.innerHTML = '';
+            Calendly.initInlineWidget({
                 url: CONFIG.calendlyUrl,
+                parentElement: container,
                 prefill: {},
                 utm: {}
             });
-        } else {
-            // Fallback αν δεν φόρτωσε το widget
-            window.open(CONFIG.calendlyUrl, '_blank');
+            calendlyLoaded = true;
         }
         trackEvent('calendly_click', { action: 'click' });
+    });
+
+    calendlyModalClose?.addEventListener('click', () => {
+        calendlyModal?.classList.remove('active');
+    });
+
+    calendlyModal?.addEventListener('click', (e) => {
+        if (e.target === calendlyModal) calendlyModal.classList.remove('active');
     });
 
     // 3D tilt on links
