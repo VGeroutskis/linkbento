@@ -155,6 +155,101 @@ setInterval(() => {
     });
 }, 30000);
 
+// =============== BUTTON POPULARITY ===============
+// Εύρεση του πιο δημοφιλούς κουμπιού μέσω analytics
+
+function getButtonStats() {
+    const clicks = JSON.parse(localStorage.getItem('linkClicks') || '{}');
+    const detailed = JSON.parse(localStorage.getItem('linkClicksDetailed') || '{}');
+
+    // Δημιούργησε sorted array με στατιστικά
+    const stats = Object.entries(clicks)
+        .map(([name, count]) => {
+            const detail = detailed[name] || {};
+            const clickTimes = detail.clicks || [];
+
+            // Clicks τελευταίες 24 ώρες
+            const now = Date.now();
+            const last24h = clickTimes.filter(t => now - t < 86400000).length;
+            const last7d = clickTimes.filter(t => now - t < 604800000).length;
+
+            return {
+                button: name,
+                total_clicks: count,
+                clicks_24h: last24h,
+                clicks_7d: last7d,
+                first_click: detail.firstClick ? new Date(detail.firstClick).toLocaleString() : '—',
+                last_click: detail.lastClick ? new Date(detail.lastClick).toLocaleString() : '—',
+                pct: 0
+            };
+        })
+        .sort((a, b) => b.total_clicks - a.total_clicks);
+
+    // Υπολόγισε ποσοστά
+    const totalAll = stats.reduce((s, x) => s + x.total_clicks, 0);
+    stats.forEach(s => {
+        s.pct = totalAll > 0 ? Math.round((s.total_clicks / totalAll) * 100) : 0;
+    });
+
+    return stats;
+}
+
+function printButtonStats() {
+    const stats = getButtonStats();
+    if (stats.length === 0) {
+        console.log('📊 Δεν υπάρχουν κλικ ακόμα.');
+        return stats;
+    }
+
+    console.log('\n🏆 LinkBento — Button Popularity Report');
+    console.log('═'.repeat(50));
+    console.table(stats.map((s, i) => ({
+        '#': i + 1,
+        'Button': s.button,
+        'Total': s.total_clicks,
+        '24h': s.clicks_24h,
+        '7d': s.clicks_7d,
+        '%': s.pct + '%',
+        'Last Click': s.last_click
+    })));
+
+    const top = stats[0];
+    console.log(`\n🥇 Πιο δημοφιλές: "${top.button}" με ${top.total_clicks} κλικ (${top.pct}%)`);
+
+    if (stats.length > 1) {
+        console.log(`🥈 2ο: "${stats[1].button}" (${stats[1].total_clicks} κλικ)`);
+    }
+    if (stats.length > 2) {
+        console.log(`🥉 3ο: "${stats[2].button}" (${stats[2].total_clicks} κλικ)`);
+    }
+
+    return stats;
+}
+
+// Κάνε διαθέσιμο στην κονσόλα
+window.getButtonStats = getButtonStats;
+window.printButtonStats = printButtonStats;
+
+// Στείλε popularity report στο GA πριν φύγει ο χρήστης
+function _sendPopularityReport() {
+    const stats = getButtonStats();
+    if (stats.length === 0) return;
+
+    const top = stats[0];
+    trackEvent('button_popularity', {
+        event_category: 'analytics',
+        most_popular: top.button,
+        most_popular_clicks: top.total_clicks,
+        most_popular_pct: top.pct,
+        total_buttons_clicked: stats.length,
+        total_clicks: stats.reduce((s, x) => s + x.total_clicks, 0),
+        ranking: stats.map(s => `${s.button}:${s.total_clicks}`).join(',').substring(0, 100)
+    });
+}
+
+window.addEventListener('beforeunload', _sendPopularityReport);
+window.addEventListener('pagehide', _sendPopularityReport);
+
 // =============== EXISTING TRACKING ===============
 
 document.querySelectorAll('.theme-option').forEach(opt => {

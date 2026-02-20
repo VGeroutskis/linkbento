@@ -190,6 +190,31 @@ function bindLinkEvents() {
     const calendlyModalClose = document.getElementById('calendlyModalClose');
     let calendlyLoaded = false;
 
+    // Listen for Calendly iframe height changes to resize modal dynamically
+    window.addEventListener('message', (e) => {
+        if (e.data.event && e.data.event.indexOf('calendly') === 0) {
+            const container = document.getElementById('calendlyContainer');
+            if (!container) return;
+
+            if (e.data.event === 'calendly.page_height') {
+                // Calendly reports content height — resize container
+                const headerHeight = 60; // modal header + padding
+                const maxH = window.innerHeight * 0.92 - headerHeight;
+                const newHeight = Math.min(parseInt(e.data.payload?.height || 600), maxH);
+                container.style.height = newHeight + 'px';
+            }
+
+            if (e.data.event === 'calendly.event_scheduled') {
+                // User booked — close modal after a short delay
+                trackEvent('calendly_booked', { action: 'scheduled' });
+                setTimeout(() => {
+                    calendlyModal?.classList.remove('active');
+                    showToast(translations[currentLang]['copied'] ? '✅' : '✅');
+                }, 2000);
+            }
+        }
+    });
+
     calendlyBtn?.addEventListener('click', (e) => {
         e.preventDefault();
         calendlyModal?.classList.add('active');
@@ -237,11 +262,23 @@ function bindLinkEvents() {
     });
 
     // Link click tracking & popular badges
-    document.querySelectorAll('.link-btn').forEach(link => {
+    document.querySelectorAll('.link-btn').forEach((link, index) => {
         link.addEventListener('click', () => {
             const platform = link.querySelector('[data-lang-key]')?.getAttribute('data-lang-key');
             if (platform) incrementLinkClick(platform);
-            trackEvent('link_click', { platform: link.textContent.trim() });
+
+            // Βρες το αντίστοιχο CONFIG link για καθαρά δεδομένα
+            const configLink = CONFIG.links[index];
+            const buttonName = configLink?.langKey || platform || 'unknown';
+            const buttonUrl = configLink?.url || link.href || '';
+
+            trackEvent('link_click', {
+                button_name: buttonName,
+                button_url: buttonUrl,
+                button_position: index + 1,
+                button_total: CONFIG.links.length,
+                button_label: link.textContent?.trim().substring(0, 50) || buttonName
+            });
         });
     });
 

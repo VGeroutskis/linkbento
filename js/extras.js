@@ -269,6 +269,20 @@ function incrementLinkClick(platform) {
     const clicks = getLinkClicks();
     clicks[platform] = (clicks[platform] || 0) + 1;
     localStorage.setItem('linkClicks', JSON.stringify(clicks));
+
+    // Αποθήκευσε και λεπτομερή στατιστικά (timestamps, sessions)
+    const detailed = JSON.parse(localStorage.getItem('linkClicksDetailed') || '{}');
+    if (!detailed[platform]) {
+        detailed[platform] = { firstClick: Date.now(), lastClick: Date.now(), clicks: [] };
+    }
+    detailed[platform].lastClick = Date.now();
+    // Κράτα μόνο τα τελευταία 100 clicks ανά πλατφόρμα
+    detailed[platform].clicks.push(Date.now());
+    if (detailed[platform].clicks.length > 100) {
+        detailed[platform].clicks = detailed[platform].clicks.slice(-100);
+    }
+    localStorage.setItem('linkClicksDetailed', JSON.stringify(detailed));
+
     updatePopularBadges();
 }
 
