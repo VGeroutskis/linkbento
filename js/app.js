@@ -197,8 +197,11 @@ function bindLinkEvents() {
         if (!calendlyLoaded && typeof Calendly !== 'undefined') {
             const container = document.getElementById('calendlyContainer');
             container.innerHTML = '';
+            // Append params for compact view without Calendly's own banners
+            const url = CONFIG.calendlyUrl + (CONFIG.calendlyUrl.includes('?') ? '&' : '?') +
+                'hide_gdpr_banner=1&hide_landing_page_details=1&hide_event_type_details=1';
             Calendly.initInlineWidget({
-                url: CONFIG.calendlyUrl,
+                url: url,
                 parentElement: container,
                 prefill: {},
                 utm: {}
