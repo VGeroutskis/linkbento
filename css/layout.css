@@ -1,0 +1,180 @@
+/* 🍱 LinkBento — Layout */
+/* Loading screen, theme toggle/picker, language toggle, auto theme */
+
+/* =============== LOADING SCREEN =============== */
+.loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader-wrapper.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--link-border);
+    border-top-color: var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* =============== THEME TOGGLE =============== */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid var(--link-border);
+    background: var(--link-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    border-color: var(--accent-color);
+}
+
+/* Theme Picker Panel */
+.theme-picker {
+    position: fixed;
+    top: 75px;
+    right: 20px;
+    background: var(--link-bg);
+    border: 1px solid var(--link-border);
+    border-radius: 15px;
+    padding: 15px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.theme-picker.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.theme-picker-title {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.theme-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.theme-option {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-option:hover {
+    transform: scale(1.2);
+}
+
+.theme-option.active {
+    border-color: var(--accent-color);
+}
+
+.theme-option.dark { background: linear-gradient(135deg, #0f0c29, #302b63); }
+.theme-option.light { background: linear-gradient(135deg, #f5f5f5, #e0e0e0); }
+.theme-option.cyberpunk { background: linear-gradient(135deg, #0d0d0d, #ff0080); }
+.theme-option.sunset { background: linear-gradient(135deg, #2d1b2d, #ff6b35); }
+.theme-option.ocean { background: linear-gradient(135deg, #004d5a, #00bcd4); }
+.theme-option.forest { background: linear-gradient(135deg, #1b2e1b, #4caf50); }
+.theme-option.neon { background: linear-gradient(135deg, #0a0a0a, #00ffff, #ff00ff); }
+.theme-option.midnight { background: linear-gradient(135deg, #0d1321, #3f51b5); }
+.theme-option.rose { background: linear-gradient(135deg, #2d1b2d, #e91e63); }
+.theme-option.aurora { background: linear-gradient(135deg, #0d1b2a, #00e676, #aa00ff); }
+
+/* Auto Theme Option */
+.theme-option.auto {
+    background: linear-gradient(135deg, #1a1a2e 50%, #f5f5f5 50%);
+    position: relative;
+}
+
+.theme-option.auto::after {
+    content: 'A';
+    position: absolute;
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+/* =============== LANGUAGE TOGGLE =============== */
+.lang-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 5px;
+    background: var(--link-bg);
+    border: 1px solid var(--link-border);
+    border-radius: 25px;
+    padding: 5px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+.lang-btn {
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.lang-btn.active {
+    background: var(--accent-color);
+    color: #000;
+}
+
+.lang-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+}

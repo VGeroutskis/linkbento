@@ -1,0 +1,176 @@
+/* 🍱 LinkBento — Effects */
+/* Cursor trail, easter egg, pull to refresh, typewriter, print styles, custom cursor */
+
+/* =============== CURSOR TRAIL =============== */
+.cursor-trail {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.6;
+    transition: transform 0.1s ease;
+}
+
+/* =============== EASTER EGG =============== */
+@keyframes rainbow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.easter-egg-active {
+    animation: rainbow 2s linear infinite;
+}
+
+.easter-egg-text {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    text-shadow: 0 0 30px var(--accent-color);
+    z-index: 10001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.easter-egg-text.active {
+    opacity: 1;
+    visibility: visible;
+    animation: easterFadeIn 0.5s ease;
+}
+
+@keyframes easterFadeIn {
+    0% { opacity: 0; transform: scale(0.8); }
+    50% { transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* =============== PULL TO REFRESH =============== */
+.pull-indicator {
+    position: fixed;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--link-bg);
+    border: 1px solid var(--link-border);
+    border-radius: 25px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: top 0.3s ease;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.pull-indicator.visible {
+    top: 20px;
+}
+
+.pull-indicator i {
+    animation: spin 1s linear infinite;
+}
+
+/* =============== MISC =============== */
+/* Typewriter cursor */
+.typewriter-cursor {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* =============== CUSTOM CURSOR =============== */
+@media (hover: hover) {
+    body {
+        cursor: default;
+    }
+    
+    a, button, .link-btn, .theme-option, .action-btn {
+        cursor: pointer;
+    }
+}
+
+/* =============== PRINT STYLES =============== */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+        padding: 20px;
+    }
+    
+    .loader-wrapper,
+    .theme-toggle,
+    .theme-picker,
+    .lang-toggle,
+    .cursor-trail,
+    #particles-canvas,
+    .action-buttons,
+    .cookie-banner,
+    .modal-overlay,
+    #qrModal,
+    #shareModal,
+    #changelogModal,
+    .skip-link,
+    .pull-indicator {
+        display: none !important;
+    }
+    
+    .link-btn {
+        background: white !important;
+        border: 1px solid #333 !important;
+        color: black !important;
+        page-break-inside: avoid;
+    }
+    
+    .link-btn::before,
+    .link-btn::after {
+        display: none !important;
+    }
+    
+    .profile-section {
+        margin-bottom: 20px;
+    }
+    
+    .profile-img {
+        width: 80px;
+        height: 80px;
+        border: 2px solid #333;
+    }
+    
+    footer {
+        margin-top: 30px;
+        border-top: 1px solid #333;
+        padding-top: 15px;
+    }
+    
+    .github-stats {
+        color: black !important;
+    }
+    
+    a {
+        text-decoration: none;
+        color: black;
+    }
+    
+    .link-btn::after {
+        content: " (" attr(href) ")";
+        font-size: 0.7rem;
+        opacity: 0.6;
+    }
+}

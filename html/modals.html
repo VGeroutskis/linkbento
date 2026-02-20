@@ -1,0 +1,88 @@
+    <!-- Contact Modal -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="contact-modal">
+            <div class="modal-header">
+                <span class="modal-title" data-lang-key="modal-title">Get in Touch</span>
+                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label data-lang-key="form-name">Your Name</label>
+                    <input type="text" name="name" id="formName" required>
+                </div>
+                <div class="form-group">
+                    <label data-lang-key="form-email">Your Email</label>
+                    <input type="email" name="email" id="formEmail" required>
+                </div>
+                <div class="form-group">
+                    <label data-lang-key="form-message">Message</label>
+                    <textarea name="message" id="formMessage" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn" data-lang-key="form-send">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Easter Egg Text -->
+    <div class="easter-egg-text" id="easterEggText">🎉 YOU FOUND IT! 🎉</div>
+
+    <!-- QR Code Modal -->
+    <div id="qrModal">
+        <div class="qr-modal-content">
+            <div class="modal-header">
+                <span class="modal-title" data-lang-key="qr-title">Scan to visit</span>
+                <button class="modal-close" id="qrModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="qr-code" id="qrCode"></div>
+            <button class="submit-btn" id="downloadQR" style="margin-top: 15px;">
+                <i class="fas fa-download"></i> <span data-lang-key="download-qr">Download QR</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="shareModal">
+        <div class="share-modal-content">
+            <div class="modal-header">
+                <span class="modal-title" data-lang-key="share-title">Share</span>
+                <button class="modal-close" id="shareModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="share-options">
+                <a href="#" id="shareX" target="_blank"><i class="fab fa-x-twitter"></i>X</a>
+                <a href="#" id="shareFacebook" target="_blank"><i class="fab fa-facebook"></i>Facebook</a>
+                <a href="#" id="shareLinkedin" target="_blank"><i class="fab fa-linkedin"></i>LinkedIn</a>
+                <a href="#" id="shareWhatsapp" target="_blank"><i class="fab fa-whatsapp"></i>WhatsApp</a>
+                <a href="#" id="shareTelegram" target="_blank"><i class="fab fa-telegram"></i>Telegram</a>
+                <a href="#" id="shareCopyLink"><i class="fas fa-link"></i><span data-lang-key="copy-link">Copy</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h4><i class="fas fa-cookie-bite"></i> <span data-lang-key="cookie-title">Cookie Settings</span></h4>
+                <p data-lang-key="cookie-text">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. <a href="#" data-lang-key="cookie-learn">Learn more</a></p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn accept" id="acceptCookies">
+                    <span data-lang-key="cookie-accept">Accept</span>
+                </button>
+                <button class="cookie-btn decline" id="declineCookies">
+                    <span data-lang-key="cookie-decline">Decline</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Changelog Modal -->
+    <div id="changelogModal">
+        <div class="changelog-modal-content">
+            <div class="modal-header">
+                <span class="modal-title" data-lang-key="changelog-title">What's New</span>
+                <button class="modal-close" id="changelogModalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="changelogContent"></div>
+        </div>
+    </div>

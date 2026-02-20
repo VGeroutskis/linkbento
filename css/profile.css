@@ -1,0 +1,210 @@
+/* 🍱 LinkBento — Profile */
+/* Profile section, h1 gradients, bio, greeting, status badge, action buttons */
+
+/* =============== PROFILE SECTION =============== */
+.profile-section {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeInBlur 1.2s ease-out;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--link-border);
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
+    margin-bottom: 15px;
+    animation: floating 6s ease-in-out infinite;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.profile-img:hover {
+    box-shadow: 0 0 60px rgba(0, 210, 255, 0.5), 0 0 100px rgba(157, 80, 187, 0.3);
+    transform: translateY(-5px) scale(1.05);
+}
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+}
+
+h1 { 
+    font-size: 1.7rem; 
+    font-weight: 600; 
+    letter-spacing: 1px;
+    background: linear-gradient(to right, #fff, var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Theme-specific h1 gradients */
+[data-theme="light"] h1 {
+    background: linear-gradient(to right, #1a1a2e, var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="cyberpunk"] h1 {
+    background: linear-gradient(to right, #00ff41, #ff0080);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="sunset"] h1 {
+    background: linear-gradient(to right, #fff5e6, #ff6b35);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="ocean"] h1 {
+    background: linear-gradient(to right, #e0f7fa, #00bcd4);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="forest"] h1 {
+    background: linear-gradient(to right, #e8f5e9, #4caf50);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="neon"] h1 {
+    background: linear-gradient(to right, #00ffff, #ff00ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="midnight"] h1 {
+    background: linear-gradient(to right, #c5cae9, #3f51b5);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="rose"] h1 {
+    background: linear-gradient(to right, #fce4ec, #e91e63);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="aurora"] h1 {
+    background: linear-gradient(to right, #00e676, #aa00ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.bio {
+    font-size: 0.95rem;
+    opacity: 0.7;
+    margin: 5px 0 0 0;
+    letter-spacing: 0.5px;
+}
+
+/* =============== GREETING =============== */
+.greeting {
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    margin-bottom: 5px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 0.5s;
+}
+
+/* =============== STATUS BADGE =============== */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 255, 100, 0.1);
+    border: 1px solid rgba(0, 255, 100, 0.3);
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    margin-top: 15px;
+    animation: pulse-badge 2s ease-in-out infinite;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff64;
+    border-radius: 50%;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+@keyframes pulse-badge {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 100, 0.2); }
+    50% { box-shadow: 0 0 20px 5px rgba(0, 255, 100, 0.1); }
+}
+
+/* =============== ACTION BUTTONS =============== */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.action-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid var(--link-border);
+    background: var(--link-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.action-btn:hover {
+    transform: scale(1.1);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+.action-btn .action-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    margin-bottom: 8px;
+    pointer-events: none;
+}
+
+.action-btn:hover .action-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.action-btn.copied {
+    border-color: #00ff64;
+    color: #00ff64;
+}
