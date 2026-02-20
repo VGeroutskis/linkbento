@@ -184,11 +184,20 @@ function bindLinkEvents() {
         document.getElementById('contactModal').classList.add('active');
     });
 
-    // Calendly button
+    // Calendly button — opens popup widget on the page
     const calendlyBtn = document.getElementById('calendlyBtn');
     calendlyBtn?.addEventListener('click', (e) => {
         e.preventDefault();
-        window.open(CONFIG.calendlyUrl, '_blank');
+        if (typeof Calendly !== 'undefined') {
+            Calendly.initPopupWidget({
+                url: CONFIG.calendlyUrl,
+                prefill: {},
+                utm: {}
+            });
+        } else {
+            // Fallback αν δεν φόρτωσε το widget
+            window.open(CONFIG.calendlyUrl, '_blank');
+        }
         trackEvent('calendly_click', { action: 'click' });
     });
 
