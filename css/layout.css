@@ -95,7 +95,7 @@
 
 .theme-options {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 8px;
 }
 
@@ -126,6 +126,12 @@
 .theme-option.midnight { background: linear-gradient(135deg, #0d1321, #3f51b5); }
 .theme-option.rose { background: linear-gradient(135deg, #2d1b2d, #e91e63); }
 .theme-option.aurora { background: linear-gradient(135deg, #0d1b2a, #00e676, #aa00ff); }
+.theme-option.lavender { background: linear-gradient(135deg, #1a0e2e, #ce93d8); }
+.theme-option.mocha { background: linear-gradient(135deg, #1b1210, #d7a86e); }
+.theme-option.arctic { background: linear-gradient(135deg, #0a1929, #81d4fa); }
+.theme-option.volcano { background: linear-gradient(135deg, #1a0a00, #ff5722); }
+.theme-option.synthwave { background: linear-gradient(135deg, #1a0033, #ffd700, #e040fb); }
+.theme-option.dracula { background: linear-gradient(135deg, #282a36, #bd93f9, #ff79c6); }
 
 /* Auto Theme Option */
 .theme-option.auto {

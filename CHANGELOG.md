@@ -4,6 +4,36 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.10.0] - 2026-02-20
+
+<!-- en -->
+### Added
+- 6 new themes: Lavender, Mocha, Arctic, Volcano, Synthwave, Dracula (17 total)
+- Advanced analytics: click tracking, time on page, scroll depth, engagement metrics
+- Modular codebase: HTML split into partials with build script
+- Pre-commit hook: build.sh runs automatically before every git commit
+
+### Changed
+- CSS split into 8 modular files (`css/` folder)
+- JavaScript split into 8 modular files (`js/` folder)
+- HTML split into 6 partial files (`html/` folder) with `build.sh` concatenation
+- Theme picker grid updated from 5 to 6 columns
+- Google Analytics moved from `<head>` to bottom of `<body>`
+
+<!-- el -->
+### Προσθήκη
+- 6 νέα θέματα: Lavender, Mocha, Arctic, Volcano, Synthwave, Dracula (17 συνολικά)
+- Προηγμένα analytics: παρακολούθηση κλικ, χρόνου παραμονής, βάθους scroll, engagement metrics
+- Modular codebase: HTML split σε partials με build script
+- Pre-commit hook: το build.sh τρέχει αυτόματα πριν από κάθε git commit
+
+### Αλλαγή
+- CSS χωρίστηκε σε 8 αρχεία (`css/` folder)
+- JavaScript χωρίστηκε σε 8 αρχεία (`js/` folder)
+- HTML χωρίστηκε σε 6 partials (`html/` folder) με `build.sh` concatenation
+- Theme picker grid ενημερώθηκε από 5 σε 6 στήλες
+- Google Analytics μεταφέρθηκε από `<head>` στο κάτω μέρος του `<body>`
+
 ## [2.9.2] - 2026-02-18
 
 <!-- en -->

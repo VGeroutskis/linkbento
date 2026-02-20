@@ -95,6 +95,42 @@ h1 {
     background-clip: text;
 }
 
+[data-theme="lavender"] h1 {
+    background: linear-gradient(to right, #f3e5f5, #ce93d8);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="mocha"] h1 {
+    background: linear-gradient(to right, #efebe9, #d7a86e);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="arctic"] h1 {
+    background: linear-gradient(to right, #e1f5fe, #81d4fa);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="volcano"] h1 {
+    background: linear-gradient(to right, #fff3e0, #ff5722);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="synthwave"] h1 {
+    background: linear-gradient(to right, #ffd700, #e040fb);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="dracula"] h1 {
+    background: linear-gradient(to right, #f8f8f2, #bd93f9);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
 .bio {
     font-size: 0.95rem;
     opacity: 0.7;

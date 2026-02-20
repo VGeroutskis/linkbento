@@ -109,3 +109,69 @@
     --bg-primary: #0d1b2a;
     --bg-gradient: linear-gradient(-45deg, #0d1b2a, #1b2838, #0d2818, #1a0d2a);
 }
+
+/* Lavender Theme */
+[data-theme="lavender"] {
+    --text-color: #f3e5f5;
+    --link-bg: rgba(186, 104, 200, 0.1);
+    --link-border: rgba(186, 104, 200, 0.3);
+    --accent-color: #ce93d8;
+    --secondary-accent: #ba68c8;
+    --bg-primary: #1a0e2e;
+    --bg-gradient: linear-gradient(-45deg, #1a0e2e, #2d1650, #1e1040, #2a1848);
+}
+
+/* Mocha Theme */
+[data-theme="mocha"] {
+    --text-color: #efebe9;
+    --link-bg: rgba(161, 136, 127, 0.1);
+    --link-border: rgba(161, 136, 127, 0.3);
+    --accent-color: #d7a86e;
+    --secondary-accent: #a1887f;
+    --bg-primary: #1b1210;
+    --bg-gradient: linear-gradient(-45deg, #1b1210, #2c1e1a, #3e2723, #1a120e);
+}
+
+/* Arctic Theme */
+[data-theme="arctic"] {
+    --text-color: #e1f5fe;
+    --link-bg: rgba(129, 212, 250, 0.08);
+    --link-border: rgba(129, 212, 250, 0.25);
+    --accent-color: #81d4fa;
+    --secondary-accent: #4fc3f7;
+    --bg-primary: #0a1929;
+    --bg-gradient: linear-gradient(-45deg, #0a1929, #0d2137, #0f2b46, #0a1f35);
+}
+
+/* Volcano Theme */
+[data-theme="volcano"] {
+    --text-color: #fff3e0;
+    --link-bg: rgba(255, 87, 34, 0.1);
+    --link-border: rgba(255, 87, 34, 0.3);
+    --accent-color: #ff5722;
+    --secondary-accent: #ff8a65;
+    --bg-primary: #1a0a00;
+    --bg-gradient: linear-gradient(-45deg, #1a0a00, #2d1000, #3e1a00, #1f0c00);
+}
+
+/* Synthwave Theme */
+[data-theme="synthwave"] {
+    --text-color: #f8e8ff;
+    --link-bg: rgba(224, 64, 251, 0.1);
+    --link-border: rgba(255, 215, 0, 0.25);
+    --accent-color: #ffd700;
+    --secondary-accent: #e040fb;
+    --bg-primary: #1a0033;
+    --bg-gradient: linear-gradient(-45deg, #1a0033, #2d004d, #0d0033, #33004d);
+}
+
+/* Dracula Theme */
+[data-theme="dracula"] {
+    --text-color: #f8f8f2;
+    --link-bg: rgba(98, 114, 164, 0.1);
+    --link-border: rgba(98, 114, 164, 0.3);
+    --accent-color: #bd93f9;
+    --secondary-accent: #ff79c6;
+    --bg-primary: #282a36;
+    --bg-gradient: linear-gradient(-45deg, #282a36, #1e1f29, #343746, #21222c);
+}
