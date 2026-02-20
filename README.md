@@ -96,13 +96,12 @@ const CONFIG = {
     githubUsername: 'yourusername',
     contactEmail: 'you@example.com',
     calendlyUrl: 'https://calendly.com/you',
+    googleAnalyticsId: 'G-XXXXXXXXXX',  // leave '' to disable
     links: [
         { url: '...', icon: 'fab fa-github', cssClass: 'github', langKey: 'github', ... },
         // ...add as many links as you want
     ],
     vcard: { firstName: '...', lastName: '...', ... },
-    skills: ['JavaScript', 'Python', ...],  // fallback if GitHub API fails
-    portfolio: [...],                        // fallback if GitHub API fails
 };
 ```
 
@@ -271,13 +270,12 @@ const CONFIG = {
     githubUsername: 'tousername',
     contactEmail: 'you@example.com',
     calendlyUrl: 'https://calendly.com/you',
+    googleAnalyticsId: 'G-XXXXXXXXXX',  // άσε '' για απενεργοποίηση
     links: [
         { url: '...', icon: 'fab fa-github', cssClass: 'github', langKey: 'github', ... },
         // ...πρόσθεσε όσα links θέλεις
     ],
     vcard: { firstName: '...', lastName: '...', ... },
-    skills: ['JavaScript', 'Python', ...],  // fallback αν αποτύχει το GitHub API
-    portfolio: [...],                        // fallback αν αποτύχει το GitHub API
 };
 ```
 

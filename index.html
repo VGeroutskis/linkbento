@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -250,7 +250,7 @@
     <footer>
         <div class="timezone">
             <i class="fas fa-map-marker-alt"></i>
-            <span id="locationTime">Athens, Greece • --:--</span>
+            <span id="locationTime">--:--</span>
         </div>
         <!-- GitHub Stats -->
         <div class="github-stats" id="githubStats">
@@ -261,11 +261,20 @@
         <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 4px;">Powered by <a class="linkbento-link" href="#" target="_blank" style="color: var(--accent-color); text-decoration: none;">LinkBento</a> 🍱</p>
     </footer>
 
-    <!-- Google Analytics (moved from head) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3975PTPNYY"></script>
+    <!-- Google Analytics (loaded dynamically from CONFIG.googleAnalyticsId) -->
+    <!-- GA script tag is injected by analytics.js after config.js loads -->
 
     <!-- App Scripts -->
     <script src="js/config.js"></script>
+    <script>
+        // Load GA script dynamically from CONFIG
+        if (CONFIG.googleAnalyticsId) {
+            const gaScript = document.createElement('script');
+            gaScript.async = true;
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + CONFIG.googleAnalyticsId;
+            document.head.appendChild(gaScript);
+        }
+    </script>
     <script src="js/analytics.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/theme.js"></script>

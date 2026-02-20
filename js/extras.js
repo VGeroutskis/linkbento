@@ -230,16 +230,19 @@ declineCookies?.addEventListener('click', () => {
 // =============== vCARD DOWNLOAD ===============
 function generateVCard() {
     const v = CONFIG.vcard;
-    const vcard = `BEGIN:VCARD
-VERSION:3.0
-FN:${v.firstName} ${v.lastName}
-N:${v.lastName};${v.firstName};;;
-EMAIL:${v.email}
-${v.phone ? 'TEL:' + v.phone : ''}
-URL:${v.website}
-TITLE:${v.title}
-${v.company ? 'ORG:' + v.company : ''}
-END:VCARD`;
+    const lines = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        `FN:${v.firstName} ${v.lastName}`,
+        `N:${v.lastName};${v.firstName};;;`,
+        `EMAIL:${v.email}`,
+    ];
+    if (v.phone) lines.push(`TEL:${v.phone}`);
+    lines.push(`URL:${v.website}`);
+    lines.push(`TITLE:${v.title}`);
+    if (v.company) lines.push(`ORG:${v.company}`);
+    lines.push('END:VCARD');
+    const vcard = lines.join('\n');
     return vcard;
 }
 
@@ -252,7 +255,7 @@ document.getElementById('vcardBtn')?.addEventListener('click', () => {
     link.download = `${CONFIG.vcard.firstName}-${CONFIG.vcard.lastName}.vcf`;
     link.click();
     URL.revokeObjectURL(url);
-    trackEvent('vcard_download', 'click');
+    trackEvent('vcard_download', { action: 'click' });
     if (navigator.vibrate) navigator.vibrate(50);
 });
 

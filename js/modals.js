@@ -6,18 +6,18 @@ const contactModal = document.getElementById('contactModal');
 const modalClose = document.getElementById('modalClose');
 const contactForm = document.getElementById('contactForm');
 
-modalClose.addEventListener('click', () => {
-    contactModal.classList.remove('active');
+modalClose?.addEventListener('click', () => {
+    contactModal?.classList.remove('active');
 });
 
-contactModal.addEventListener('click', (e) => {
+contactModal?.addEventListener('click', (e) => {
     if (e.target === contactModal) {
         contactModal.classList.remove('active');
     }
 });
 
 // Handle form submission
-contactForm.addEventListener('submit', (e) => {
+contactForm?.addEventListener('submit', (e) => {
     e.preventDefault();
     
     const name = document.getElementById('formName').value.trim();
@@ -86,7 +86,7 @@ shareBtn?.addEventListener('click', async (e) => {
                 text: translations[currentLang]['share-text'],
                 url: window.location.href
             });
-            trackEvent('share', 'native');
+            trackEvent('share', { method: 'native' });
         } else {
             const url = encodeURIComponent(window.location.href);
             const text = encodeURIComponent(translations[currentLang]['share-text']);
@@ -98,7 +98,7 @@ shareBtn?.addEventListener('click', async (e) => {
             document.getElementById('shareTelegram').href = `https://t.me/share/url?url=${url}&text=${text}`;
             
             shareModal.classList.add('active');
-            trackEvent('share', 'modal_open');
+            trackEvent('share', { method: 'modal_open' });
         }
     } catch (err) {
         console.log('Share failed:', err);
@@ -123,7 +123,7 @@ document.getElementById('shareCopyLink')?.addEventListener('click', async (e) =>
         await navigator.clipboard.writeText(window.location.href);
         showToast(translations[currentLang]['copied']);
         shareModal.classList.remove('active');
-        trackEvent('share', 'copy_link');
+        trackEvent('share', { method: 'copy_link' });
     } catch (err) {
         console.log('Copy failed:', err);
     }
@@ -134,7 +134,7 @@ copyBtn?.addEventListener('click', async () => {
     try {
         await navigator.clipboard.writeText(window.location.href);
         showToast(translations[currentLang]['copied']);
-        trackEvent('copy_link', 'click');
+        trackEvent('copy_link', { action: 'click' });
         if (navigator.vibrate) navigator.vibrate(50);
     } catch (err) {
         console.log('Copy failed:', err);
@@ -151,6 +151,7 @@ qrBtn?.addEventListener('click', () => {
         const pageUrl = window.location.href;
         
         const qrImg = document.createElement('img');
+        qrImg.crossOrigin = 'anonymous';
         qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(pageUrl)}`;
         qrImg.alt = 'QR Code';
         qrImg.style.borderRadius = '10px';
@@ -164,7 +165,7 @@ qrBtn?.addEventListener('click', () => {
         qrContainer.innerHTML = '';
         qrContainer.appendChild(qrImg);
     }
-    trackEvent('qr_modal', 'open');
+    trackEvent('qr_modal', { action: 'open' });
 });
 
 qrModalClose?.addEventListener('click', () => {
@@ -188,7 +189,7 @@ document.getElementById('downloadQR')?.addEventListener('click', () => {
         link.download = `${getName().toLowerCase().replace(/\s+/g, '-')}-qr.png`;
         link.href = cvs.toDataURL('image/png');
         link.click();
-        trackEvent('qr_download', 'click');
+        trackEvent('qr_download', { action: 'click' });
     }
 });
 
@@ -200,7 +201,7 @@ const changelogModalClose = document.getElementById('changelogModalClose');
 changelogBtn?.addEventListener('click', () => {
     renderChangelog();
     changelogModal?.classList.add('active');
-    trackEvent('changelog_view', 'click');
+    trackEvent('changelog_view', { action: 'click' });
 });
 
 changelogModalClose?.addEventListener('click', () => {

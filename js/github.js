@@ -57,18 +57,12 @@ async function fetchGithubData() {
         }
     } catch (err) {
         console.log('GitHub API error:', err);
-        // Fallback to CONFIG if API fails
-        renderSkills();
-        renderPortfolio();
     }
 }
 
 function renderSkillsFromGithub(languages) {
     const container = document.getElementById('skillsContainer');
-    if (!container || languages.length === 0) {
-        renderSkills(); // Fallback
-        return;
-    }
+    if (!container || languages.length === 0) return;
     
     container.innerHTML = languages.map((lang, index) => 
         `<span class="skill-badge" style="animation-delay: ${index * 0.1}s">
@@ -104,10 +98,7 @@ function getDevIcon(language) {
 
 function renderPortfolioFromGithub(repos) {
     const container = document.getElementById('portfolioContainer');
-    if (!container || repos.length === 0) {
-        renderPortfolio(); // Fallback
-        return;
-    }
+    if (!container || repos.length === 0) return;
     
     container.innerHTML = repos.map((repo, index) => `
         <a href="${repo.html_url}" target="_blank" class="portfolio-card-link" style="text-decoration: none; color: inherit;">
@@ -160,33 +151,3 @@ function getLanguageColor(language) {
 // Fetch GitHub data on load
 fetchGithubData();
 
-// =============== SKILLS RENDER (FALLBACK) ===============
-function renderSkills() {
-    const container = document.getElementById('skillsContainer');
-    if (!container) return;
-    
-    container.innerHTML = CONFIG.skills.map((skill, index) => 
-        `<span class="skill-badge" style="animation-delay: ${index * 0.1}s">${skill}</span>`
-    ).join('');
-}
-
-// =============== PORTFOLIO RENDER (FALLBACK) ===============
-function renderPortfolio() {
-    const container = document.getElementById('portfolioContainer');
-    if (!container) return;
-    
-    container.innerHTML = CONFIG.portfolio.map((project, index) => `
-        <a href="${project.link}" target="_blank" class="portfolio-card-link" style="text-decoration: none; color: inherit;">
-            <div class="portfolio-card" style="animation-delay: ${index * 0.15}s">
-                <img src="${project.image}" alt="${project.title[currentLang]}" loading="lazy">
-                <div class="portfolio-info">
-                    <h4>${project.title[currentLang]}</h4>
-                    <p>${project.description[currentLang]}</p>
-                    <span class="portfolio-link">
-                        ${translations[currentLang]['view-project']} <i class="fas fa-arrow-right"></i>
-                    </span>
-                </div>
-            </div>
-        </a>
-    `).join('');
-}

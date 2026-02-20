@@ -4,7 +4,9 @@
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-3975PTPNYY');
+if (CONFIG.googleAnalyticsId) {
+    gtag('config', CONFIG.googleAnalyticsId);
+}
 
 // =============== ANALYTICS ===============
 function trackEvent(eventName, eventData = {}) {
@@ -74,10 +76,14 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // Scroll depth tracking
+function _getScrollPercent() {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollable <= 0) return 100;
+    return Math.min(100, Math.round((window.scrollY / scrollable) * 100));
+}
+
 window.addEventListener('scroll', () => {
-    const scrollPercent = Math.round(
-        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
-    );
+    const scrollPercent = _getScrollPercent();
     if (scrollPercent > _scrollDepthMax) {
         _scrollDepthMax = scrollPercent;
     }
@@ -86,9 +92,7 @@ window.addEventListener('scroll', () => {
 // Scroll depth milestones (25%, 50%, 75%, 100%)
 let _scrollMilestones = new Set();
 window.addEventListener('scroll', () => {
-    const scrollPercent = Math.round(
-        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
-    );
+    const scrollPercent = _getScrollPercent();
     [25, 50, 75, 100].forEach(milestone => {
         if (scrollPercent >= milestone && !_scrollMilestones.has(milestone)) {
             _scrollMilestones.add(milestone);
@@ -119,10 +123,10 @@ function _sendEngagementData() {
     });
 
     // Στείλε και με sendBeacon για αξιοπιστία
-    if (navigator.sendBeacon) {
+    if (navigator.sendBeacon && CONFIG.googleAnalyticsId) {
         const data = {
             v: '2',
-            tid: 'G-3975PTPNYY',
+            tid: CONFIG.googleAnalyticsId,
             en: 'page_engagement',
             'ep.active_time_seconds': activeTimeSec,
             'ep.total_time_seconds': totalTimeSec,

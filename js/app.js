@@ -8,6 +8,10 @@ document.getElementById("year").textContent = new Date().getFullYear();
 function initPage() {
     const lang = currentLang;
     const name = getName(lang);
+
+    // Set html lang attribute
+    document.documentElement.lang = lang;
+
     // Title
     document.title = CONFIG.seo.title[lang] || CONFIG.seo.title.en;
 
@@ -102,6 +106,9 @@ function updateLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('lang', lang);
 
+    // Update html lang attribute
+    document.documentElement.lang = lang;
+
     // Update title & meta for current language
     document.title = CONFIG.seo.title[lang] || CONFIG.seo.title.en;
     setMeta('description', CONFIG.seo.description[lang] || CONFIG.seo.description.en);
@@ -132,8 +139,6 @@ function updateLanguage(lang) {
     // Re-render portfolio with cached GitHub data if available
     if (cachedGithubRepos && cachedGithubRepos.length > 0 && typeof renderPortfolioFromGithub === 'function') {
         renderPortfolioFromGithub(cachedGithubRepos);
-    } else if (typeof renderPortfolio === 'function') {
-        renderPortfolio();
     }
     if (typeof updatePopularBadges === 'function') updatePopularBadges();
     // Re-render changelog if modal is open
@@ -184,7 +189,7 @@ function bindLinkEvents() {
     calendlyBtn?.addEventListener('click', (e) => {
         e.preventDefault();
         window.open(CONFIG.calendlyUrl, '_blank');
-        trackEvent('calendly_click', 'click');
+        trackEvent('calendly_click', { action: 'click' });
     });
 
     // 3D tilt on links

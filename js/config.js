@@ -44,6 +44,9 @@ const CONFIG = {
     contactEmail: 'info@geroutskis.com',
     calendlyUrl: 'https://calendly.com/vgeroutskis',
 
+    // ── Google Analytics ──
+    googleAnalyticsId: 'G-3975PTPNYY',  // Αφήστε κενό '' για απενεργοποίηση
+
     // ── vCard ──
     vcard: {
         firstName: 'Valentinos',
@@ -107,25 +110,6 @@ const CONFIG = {
             tooltipKey: 'book-meeting',
             external: false,
             action: 'calendly'  // ειδική ενέργεια: ανοίγει Calendly
-        }
-    ],
-
-    // ── Skills / Tech Stack (fallback αν αποτύχει το GitHub API) ──
-    skills: ['JavaScript', 'Python', 'React', 'Node.js', 'TypeScript', 'AWS'],
-
-    // ── Portfolio (fallback αν αποτύχει το GitHub API) ──
-    portfolio: [
-        {
-            title: { el: 'Project Alpha', en: 'Project Alpha' },
-            description: { el: 'Web εφαρμογή με React', en: 'Web app built with React' },
-            image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400&q=80',
-            link: 'https://github.com/vgeroutskis'
-        },
-        {
-            title: { el: 'Project Beta', en: 'Project Beta' },
-            description: { el: 'API με Node.js', en: 'API built with Node.js' },
-            image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80',
-            link: 'https://github.com/vgeroutskis'
         }
     ],
 
